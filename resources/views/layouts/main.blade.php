@@ -17,7 +17,12 @@
         </style>
     </head>
     <body>
-        @yield('content')
+        <main>
+            @if(session('msg'))
+                <p class="msg">{{ session('msg') }}</p>
+            @endif
+            @yield('content')
+        </main>
         <footer>
             <p>Buzz Movies &copy; 2022</p>
         </footer>

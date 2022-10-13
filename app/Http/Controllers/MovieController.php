@@ -27,7 +27,7 @@ class MovieController extends Controller
 
         $movie->save();
 
-        return redirect('/');
+        return redirect('/')->with('msg', 'Upload feito com sucesso!');
 
     }
 }
