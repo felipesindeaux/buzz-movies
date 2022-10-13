@@ -19,6 +19,8 @@ Route::get('/', [MovieController::class, 'index']);
 
 Route::get('/movie/create', [MovieController::class, 'create']);
 
+Route::post('/movie', [MovieController::class, 'store']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -18,4 +18,16 @@ class MovieController extends Controller
     public function create() {
         return view('movies.create');
     }
+
+    public function store(Request $request) {
+
+        $movie = new Movie;
+
+        $movie->name = $request->name;
+
+        $movie->save();
+
+        return redirect('/');
+
+    }
 }
