@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\MovieController;
+
+Route::get('/', [MovieController::class, 'index']);
+
+Route::get('/movie/create', [MovieController::class, 'create']);
 
 Route::middleware([
     'auth:sanctum',
