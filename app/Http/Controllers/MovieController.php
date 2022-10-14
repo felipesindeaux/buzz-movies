@@ -37,8 +37,7 @@ class MovieController extends Controller
         if ($validator->fails()) {
             return redirect()
                 ->back()
-                ->withErrors($validator)
-                ->withInput();
+                ->with('msg', 'Tamanho ou extensão inválida!');
         } else {
             $requestVideo = $request->video;
 
@@ -46,8 +45,8 @@ class MovieController extends Controller
 
             $videoName = md5($requestVideo->getClientOriginalName() . strtotime("now")) . "." . $extension;
 
-            $videoSize = number_format($requestVideo->getSize() / 1048576,2);
-            
+            $videoSize = number_format($requestVideo->getSize() / 1048576, 2);
+
             $request->video->move(public_path('video/movies'), $videoName);
 
             $movie->video = $videoName;

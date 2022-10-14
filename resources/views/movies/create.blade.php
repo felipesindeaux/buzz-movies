@@ -11,7 +11,7 @@
         <input type="text" name="name" placeholder="Digite aqui">
     </div>
     <div>
-        <label for="video">Filme:</label>
+        <label for="video">Filme (max 5mb):</label>
         <input type="file" name="video">
     </div>
     <button type="submit">Fazer upload</button>
