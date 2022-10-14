@@ -11,7 +11,19 @@ class MovieController extends Controller
     public function index()
     {
 
-        $movies = Movie::all();
+        $button = request('order');
+
+        if ($button === 'asc') {
+
+            $movies = Movie::all()->sortBy('name');
+        } else if ($button === 'desc') {
+
+            $movies = Movie::all()->sortByDesc('name');
+        } else {
+
+            $movies = Movie::all();
+        }
+
 
         return view('welcome', ['movies' => $movies]);
     }
