@@ -13,9 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use App\Http\Controllers\MovieController;
+
+Route::get('/', [MovieController::class, 'index']);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/movie/create', [MovieController::class, 'create']);
 });
+
+Route::post('/movie', [MovieController::class, 'store']);
 
 Route::middleware([
     'auth:sanctum',
