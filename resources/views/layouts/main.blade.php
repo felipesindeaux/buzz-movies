@@ -14,6 +14,10 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+
+            a{
+                display: block;
+            }
         </style>
     </head>
     <body>

@@ -70,4 +70,10 @@ class MovieController extends Controller
 
         return redirect('/')->with('msg', 'Upload feito com sucesso!');
     }
+
+    public function show($id) {
+        $movie = Movie::findOrFail($id);
+
+        return view('movies.show', ['movie' => $movie]);
+    }
 }

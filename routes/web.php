@@ -17,6 +17,8 @@ use App\Http\Controllers\MovieController;
 
 Route::get('/', [MovieController::class, 'index']);
 
+Route::get('/movie/{id}', [MovieController::class, 'show']);
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
