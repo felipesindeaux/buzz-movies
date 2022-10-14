@@ -11,5 +11,10 @@
     <source src="/video/movies/{{ $movie->video }}">
     Seu navegador não suporta esse tipo de vídeo.
 </video>
+<form action="/movie/{{ $movie->id }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button>Deletar filme</button>
+</form>
 
 @endsection

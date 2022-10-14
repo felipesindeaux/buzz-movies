@@ -27,6 +27,8 @@ Route::middleware([
     Route::get('/movie/create', [MovieController::class, 'create']);
 });
 
+Route::delete('/movie/{id}', [MovieController::class, 'destroy']);
+
 Route::post('/movie', [MovieController::class, 'store']);
 
 Route::middleware([
