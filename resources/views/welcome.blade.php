@@ -11,5 +11,8 @@
     Seu navegador não suporta esse tipo de vídeo.
 </video>
 @endforeach
+@if(count($movies) === 0)
+    <h2>Não há filmes disponíveis!</h2>
+@endif
 
 @endsection
