@@ -92,4 +92,24 @@ class MovieController extends Controller
 
         return redirect('/')->with('msg', 'Filme excluído com sucesso!');
     }
+
+    public function edit($id)
+    {
+
+
+        $movie = Movie::findOrFail($id);
+
+        $user = auth()->user();
+
+
+        return view('movies.edit', ['movie' => $movie, 'user' => $user]);
+    }
+
+    public function update(Request $request)
+    {
+
+        Movie::findOrFail($request->id)->update($request->all());
+
+        return redirect('/')->with('msg', 'Filme editado com sucesso!');
+    }
 }

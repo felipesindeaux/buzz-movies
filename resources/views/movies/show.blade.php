@@ -14,6 +14,7 @@
 <p>Criado por: {{ $movieOwner->name }}</p>
 
 @if($user && $movie->user_id === $user->id)
+<a href="/movie/edit/{{ $movie->id }}">Editar filme</a>
 <form action="/movie/{{ $movie->id }}" method="POST">
     @csrf
     @method('DELETE')
