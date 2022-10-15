@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Movie;
+use App\Models\User;
 
 class MovieController extends Controller
 {
@@ -78,7 +79,9 @@ class MovieController extends Controller
     {
         $movie = Movie::findOrFail($id);
 
-        return view('movies.show', ['movie' => $movie]);
+        $movieOwner = User::where('id', $movie->user_id)->first();
+
+        return view('movies.show', ['movie' => $movie, 'movieOwner' => $movieOwner]);
     }
 
     public function destroy($id)
