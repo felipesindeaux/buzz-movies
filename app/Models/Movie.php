@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Movie;
+use App\Models\User;
 
 class MovieController extends Controller
 {
@@ -66,8 +67,49 @@ class MovieController extends Controller
             $movie->size = $videoSize;
         }
 
+        $user = auth()->user();
+        $movie->user_id = $user->id;
+
         $movie->save();
 
         return redirect('/')->with('msg', 'Upload feito com sucesso!');
+    }
+
+    public function show($id)
+    {
+        $movie = Movie::findOrFail($id);
+
+        $movieOwner = User::where('id', $movie->user_id)->first();
+
+        $user = auth()->user();
+
+        return view('movies.show', ['movie' => $movie, 'movieOwner' => $movieOwner, 'user' => $user]);
+    }
+
+    public function destroy($id)
+    {
+        Movie::findOrFail($id)->delete();
+
+        return redirect('/')->with('msg', 'Filme excluído com sucesso!');
+    }
+
+    public function edit($id)
+    {
+
+
+        $movie = Movie::findOrFail($id);
+
+        $user = auth()->user();
+
+
+        return view('movies.edit', ['movie' => $movie, 'user' => $user]);
+    }
+
+    public function update(Request $request)
+    {
+
+        Movie::findOrFail($request->id)->update($request->all());
+
+        return redirect('/')->with('msg', 'Filme editado com sucesso!');
     }
 }

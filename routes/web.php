@@ -17,13 +17,15 @@ use App\Http\Controllers\MovieController;
 
 Route::get('/', [MovieController::class, 'index']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/movie/create', [MovieController::class, 'create']);
-});
+Route::get('/movie/create', [MovieController::class, 'create'])->middleware('auth');
+
+Route::get('/movie/{id}', [MovieController::class, 'show']);
+
+Route::delete('/movie/{id}', [MovieController::class, 'destroy'])->middleware('auth');
+
+Route::get('/movie/edit/{id}', [MovieController::class, 'edit'])->middleware('auth');
+
+Route::put('/movie/update/{id}', [MovieController::class, 'update'])->middleware('auth');
 
 Route::post('/movie', [MovieController::class, 'store']);
 

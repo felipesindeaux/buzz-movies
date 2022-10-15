@@ -11,12 +11,7 @@
 </form>
 
 @foreach($movies as $movie)
-<h3>{{ $movie->name }} ({{ $movie->size }}mb)</h3>
-<p>Data de upload: {{ date('d/m/Y', strtotime($movie->created_at)) }}</p>
-<video width="320" height="240" controls>
-    <source src="/video/movies/{{ $movie->video }}">
-    Seu navegador não suporta esse tipo de vídeo.
-</video>
+<a href="/movie/{{ $movie->id }}">{{ $movie->name }}</a>
 @endforeach
 @if(count($movies) === 0)
     <h2>Não há filmes disponíveis!</h2>
