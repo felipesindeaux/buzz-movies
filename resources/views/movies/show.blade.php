@@ -12,10 +12,13 @@
     Seu navegador não suporta esse tipo de vídeo.
 </video>
 <p>Criado por: {{ $movieOwner->name }}</p>
+
+@if($user && $movie->user_id === $user->id)
 <form action="/movie/{{ $movie->id }}" method="POST">
     @csrf
     @method('DELETE')
     <button>Deletar filme</button>
 </form>
+@endif
 
 @endsection

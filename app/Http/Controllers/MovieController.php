@@ -81,7 +81,9 @@ class MovieController extends Controller
 
         $movieOwner = User::where('id', $movie->user_id)->first();
 
-        return view('movies.show', ['movie' => $movie, 'movieOwner' => $movieOwner]);
+        $user = auth()->user();
+
+        return view('movies.show', ['movie' => $movie, 'movieOwner' => $movieOwner, 'user' => $user]);
     }
 
     public function destroy($id)

@@ -21,7 +21,9 @@ Route::get('/movie/create', [MovieController::class, 'create'])->middleware('aut
 
 Route::get('/movie/{id}', [MovieController::class, 'show']);
 
-Route::delete('/movie/{id}', [MovieController::class, 'destroy']);
+Route::delete('/movie/{id}', [MovieController::class, 'destroy'])->middleware('auth');
+
+
 
 Route::post('/movie', [MovieController::class, 'store']);
 
