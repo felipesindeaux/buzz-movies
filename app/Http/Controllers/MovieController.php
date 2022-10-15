@@ -66,6 +66,9 @@ class MovieController extends Controller
             $movie->size = $videoSize;
         }
 
+        $user = auth()->user();
+        $movie->user_id = $user->id;
+
         $movie->save();
 
         return redirect('/')->with('msg', 'Upload feito com sucesso!');
