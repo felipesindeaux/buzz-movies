@@ -142,12 +142,12 @@ class MovieController extends Controller
         }
 
         if (!$validation) {
-            return redirect('/')->with('msg', 'Tag já existente neste filme!');
+            return redirect()->back()->with('msg', 'Tag já existente neste filme!');
         } else {
 
             $movie->tags()->attach($tagId);
 
-            return redirect('/')->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
+            return redirect()->back()->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
         }
     }
 
@@ -168,7 +168,7 @@ class MovieController extends Controller
         if (!$validation) {
             $movie->tags()->detach($tagId);
 
-            return redirect('/')->with('msg', 'Tag ' . $tag->name . ' removida do filme ' . $movie->name . '!');
+            return redirect()->back()->with('msg', 'Tag ' . $tag->name . ' removida do filme ' . $movie->name . '!');
         }
     }
 }
