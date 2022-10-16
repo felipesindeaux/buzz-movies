@@ -21,6 +21,15 @@
         </style>
     </head>
     <body>
+        <header>
+            <nav>
+                <a href="/login">Login</a>
+                <a href="/register">Cadastro</a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/">Catálogo</a>
+                <a href="/movie/create">Criar Filme</a>
+            </nav>
+        </header>
         <main>
             @if(session('msg'))
                 <p class="msg">{{ session('msg') }}</p>
