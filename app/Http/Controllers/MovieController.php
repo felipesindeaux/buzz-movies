@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Tag;
 
 class MovieController extends Controller
 {
@@ -111,5 +112,16 @@ class MovieController extends Controller
         Movie::findOrFail($request->id)->update($request->all());
 
         return redirect('/')->with('msg', 'Filme editado com sucesso!');
+    }
+
+    public function addTag($movieId, $tagId)
+    {
+
+        $movie = Movie::findOrFail($movieId);
+        $tag = Tag::findOrFail($tagId);
+
+        $movie->tags()->attach($tagId);
+
+        return redirect('/')->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
     }
 }

@@ -20,6 +20,10 @@
     @method('DELETE')
     <button>Deletar filme</button>
 </form>
+<form action="/movie/tags/add/{{ $movie->id }}/1" method="POST">
+    @csrf
+    <button>Adicionar Tag</button>
+</form>
 @endif
 
 @endsection
