@@ -123,13 +123,42 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($movieId);
         $tag = Tag::findOrFail($tagId);
 
-        if (array_key_exists($tag->id, $movie->tags->toArray())) {
+        $validation = true;
+
+        foreach ($movie->tags as $element) {
+            if ($tag->id == $element->id) {
+                $validation = false;
+            }
+        }
+
+        if (!$validation) {
             return redirect('/')->with('msg', 'Tag já existente neste filme!');
         } else {
 
             $movie->tags()->attach($tagId);
 
             return redirect('/')->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
+        }
+    }
+
+    public function removeTag($movieId, $tagId)
+    {
+
+        $movie = Movie::findOrFail($movieId);
+        $tag = Tag::findOrFail($tagId);
+
+        $validation = true;
+
+        foreach ($movie->tags as $element) {
+            if ($tag->id == $element->id) {
+                $validation = false;
+            }
+        }
+
+        if (!$validation) {
+            $movie->tags()->detach($tagId);
+
+            return redirect('/')->with('msg', 'Tag ' . $tag->name . ' removida do filme ' . $movie->name . '!');
         }
     }
 }

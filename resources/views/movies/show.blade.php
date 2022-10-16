@@ -24,6 +24,11 @@
     @csrf
     <button>Adicionar Tag</button>
 </form>
+<form action="/movie/tags/remove/{{ $movie->id }}/1" method="POST">
+    @csrf
+    @method('DELETE')
+    <button>Remover Tag</button>
+</form>
 @endif
 
 @endsection
