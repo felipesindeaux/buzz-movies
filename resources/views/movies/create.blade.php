@@ -8,7 +8,11 @@
     @csrf
     <div>
         <label for="name">Nome do filme:</label>
-        <input type="text" name="name" placeholder="Digite aqui">
+        <input type="text" name="name" placeholder="Rei Leão">
+    </div>
+    <div>
+        <label for="tags">Tags(separadas por espaços):</label>
+        <input type="text" name="tags" placeholder="Terror Assustador Longo">
     </div>
     <div>
         <label for="video">Filme (max 5mb):</label>

@@ -42,6 +42,7 @@ class MovieController extends Controller
 
         $movie->name = $request->name;
 
+
         $data = $request->all();
         $rules = [
             'video' => 'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:5000|required'
@@ -72,6 +73,15 @@ class MovieController extends Controller
         $movie->user_id = $user->id;
 
         $movie->save();
+
+        $tagsArray = explode(" ", $request->tags);
+
+        foreach ($tagsArray as $tagName) {
+
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            $movie->tags()->attach($tag->id);
+        }
 
         return redirect('/')->with('msg', 'Upload feito com sucesso!');
     }
