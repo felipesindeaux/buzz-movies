@@ -123,8 +123,13 @@ class MovieController extends Controller
         $movie = Movie::findOrFail($movieId);
         $tag = Tag::findOrFail($tagId);
 
-        $movie->tags()->attach($tagId);
+        if (array_key_exists($tag->id, $movie->tags->toArray())) {
+            return redirect('/')->with('msg', 'Tag já existente neste filme!');
+        } else {
 
-        return redirect('/')->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
+            $movie->tags()->attach($tagId);
+
+            return redirect('/')->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
+        }
     }
 }
