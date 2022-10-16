@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Movie;
+
 
 class Tag extends Model
 {
@@ -11,6 +13,6 @@ class Tag extends Model
 
     public function movies()
     {
-        return $this->belongsToMany('App\Models\Movie');
+        return $this->belongsToMany(Movie::class);
     }
 }
