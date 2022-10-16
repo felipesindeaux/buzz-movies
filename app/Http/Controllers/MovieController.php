@@ -122,7 +122,18 @@ class MovieController extends Controller
     public function update(Request $request)
     {
 
-        Movie::findOrFail($request->id)->update($request->all());
+        $movie = Movie::findOrFail($request->id);
+
+        $movie->update(['name' => $request->name]);
+
+        $tagsArray = explode(" ", $request->tags);
+
+        foreach ($tagsArray as $tagName) {
+
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            $movie->tags()->attach($tag->id);
+        }
 
         return redirect('/')->with('msg', 'Filme editado com sucesso!');
     }
