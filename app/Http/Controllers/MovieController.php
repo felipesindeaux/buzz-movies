@@ -97,10 +97,13 @@ class MovieController extends Controller
     public function edit($id)
     {
 
-
         $movie = Movie::findOrFail($id);
 
         $user = auth()->user();
+
+        if ($user->id != $movie->user->id) {
+            return redirect('/');
+        }
 
 
         return view('movies.edit', ['movie' => $movie, 'user' => $user]);
