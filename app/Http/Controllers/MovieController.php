@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Movie;
 use App\Models\User;
+use App\Models\Tag;
 
 class MovieController extends Controller
 {
@@ -41,6 +42,7 @@ class MovieController extends Controller
 
         $movie->name = $request->name;
 
+
         $data = $request->all();
         $rules = [
             'video' => 'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts|max:5000|required'
@@ -72,6 +74,15 @@ class MovieController extends Controller
 
         $movie->save();
 
+        $tagsArray = explode(" ", $request->tags);
+
+        foreach ($tagsArray as $tagName) {
+
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            $movie->tags()->attach($tag->id);
+        }
+
         return redirect('/')->with('msg', 'Upload feito com sucesso!');
     }
 
@@ -96,10 +107,13 @@ class MovieController extends Controller
     public function edit($id)
     {
 
-
         $movie = Movie::findOrFail($id);
 
         $user = auth()->user();
+
+        if ($user->id != $movie->user->id) {
+            return redirect('/');
+        }
 
 
         return view('movies.edit', ['movie' => $movie, 'user' => $user]);
@@ -108,8 +122,64 @@ class MovieController extends Controller
     public function update(Request $request)
     {
 
-        Movie::findOrFail($request->id)->update($request->all());
+        $movie = Movie::findOrFail($request->id);
+
+        $movie->update(['name' => $request->name]);
+
+        $tagsArray = explode(" ", $request->tags);
+
+        foreach ($tagsArray as $tagName) {
+
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+
+            $movie->tags()->attach($tag->id);
+        }
 
         return redirect('/')->with('msg', 'Filme editado com sucesso!');
+    }
+
+    public function addTag($movieId, $tagId)
+    {
+
+        $movie = Movie::findOrFail($movieId);
+        $tag = Tag::findOrFail($tagId);
+
+        $validation = true;
+
+        foreach ($movie->tags as $element) {
+            if ($tag->id == $element->id) {
+                $validation = false;
+            }
+        }
+
+        if (!$validation) {
+            return redirect()->back()->with('msg', 'Tag já existente neste filme!');
+        } else {
+
+            $movie->tags()->attach($tagId);
+
+            return redirect()->back()->with('msg', 'Tag ' . $tag->name . ' adicionada ao filme ' . $movie->name . '!');
+        }
+    }
+
+    public function removeTag($movieId, $tagId)
+    {
+
+        $movie = Movie::findOrFail($movieId);
+        $tag = Tag::findOrFail($tagId);
+
+        $validation = true;
+
+        foreach ($movie->tags as $element) {
+            if ($tag->id == $element->id) {
+                $validation = false;
+            }
+        }
+
+        if (!$validation) {
+            $movie->tags()->detach($tagId);
+
+            return redirect()->back()->with('msg', 'Tag ' . $tag->name . ' removida do filme ' . $movie->name . '!');
+        }
     }
 }

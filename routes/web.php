@@ -29,6 +29,10 @@ Route::put('/movie/update/{id}', [MovieController::class, 'update'])->middleware
 
 Route::post('/movie', [MovieController::class, 'store']);
 
+Route::post('/movie/tags/add/{movieId}/{tagId}', [MovieController::class, 'addTag'])->middleware('auth');
+
+Route::delete('/movie/tags/remove/{movieId}/{tagId}', [MovieController::class, 'removeTag'])->middleware('auth');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

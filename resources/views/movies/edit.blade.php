@@ -3,7 +3,6 @@
 @section('title', 'Editando filme')
 
 @section('content')
-@if ($user && $movie->user_id === $user->id)
 <h1>Edição</h1>
 <form action="/movie/update/{{ $movie->id }}" method="POST">
     @csrf
@@ -13,10 +12,13 @@
         <label for="name">Nome do filme:</label>
         <input type="text" name="name" placeholder="{{ $movie->name }}">
     </div>
+
+    <div>
+        <label for="tags">Adicionar novas tags:</label>
+        <input type="text" name="tags" placeholder="Terror Assustador">
+    </div>
+
     <button type="submit">Editar</button>
 </form>
-@else
-<h1>Você não tem permissão para editar esse filme!</h1>
-@endif
 
 @endsection
