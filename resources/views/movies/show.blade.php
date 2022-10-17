@@ -11,16 +11,19 @@
     <source src="/video/movies/{{ $movie->video }}">
     Seu navegador não suporta esse tipo de vídeo.
 </video>
+<br>
 Tags:
 @foreach($movie->tags as $tag)
-<span>{{ $tag->name }}</span>
-@if($user && $movie->user_id === $user->id)
-<form action="/movie/tags/remove/{{ $movie->id }}/{{ $tag->id }}" method="POST">
-    @csrf
-    @method('DELETE')
-    <button>Remover</button>
-</form>
-@endif
+<div class="tags">
+    <span>{{ $tag->name }}</span>
+    @if($user && $movie->user_id === $user->id)
+    <form action="/movie/tags/remove/{{ $movie->id }}/{{ $tag->id }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button>Remover</button>
+    </form>
+    @endif
+</div>
 @endforeach
 <p>Criado por: {{ $movieOwner->name }}</p>
 

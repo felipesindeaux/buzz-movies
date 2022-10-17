@@ -18,6 +18,21 @@
             a{
                 display: block;
             }
+
+            .tags{
+                display: inline-block;
+            }
+
+            .msg{
+                background-color: #4649FF;
+                color: white;
+            }
+
+            nav{
+                display: flex;
+                width: 400px;
+                justify-content: space-between;
+            }
         </style>
     </head>
     <body>
